@@ -24,9 +24,13 @@
 
     // 🐨 Please re-implement the regular document.createElement code above
     // with these React API calls
-    const elementProps = {className: 'container', children: 'Hello World'}
-    const elementType = 'h1'
-    const element = React.createElement(elementType, elementProps)
+
+    const helloElement = React.createElement('span', {children: 'Hello'})
+    const worldElement = React.createElement('span', {children: ' World'})
+    const element = React.createElement('div', {
+      className: 'container',
+      children: [helloElement, worldElement],
+    })
 
     ReactDOM.render(element, rootElement)
     // 💰 The example in the markdown file should be a good hint for you.
