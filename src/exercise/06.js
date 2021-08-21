@@ -5,11 +5,22 @@ import * as React from 'react'
 
 function UsernameForm({onSubmitUsername}) {
   // 🐨 add a submit event handler here (`handleSubmit`).
+  const inputRef = React.useRef(null)
+  const [showAlert, setAlert] = React.useState(false)
+  const [test, setTest] = React.useState('')
   function handleSubmit(event) {
     event.preventDefault()
-    const value = event.target.elements[0].value
-    onSubmitUsername(value)
+    onSubmitUsername(test)
   }
+
+  function handleChange(event) {
+    const value = event.target.value
+    const isValid = value === value.toLowerCase()
+    if (isValid) {
+      setTest(value)
+    }
+  }
+
   // 💰 Make sure to accept the `event` as an argument and call
   // `event.preventDefault()` to prevent the default behavior of form submit
   // events (which refreshes the page).
@@ -27,8 +38,17 @@ function UsernameForm({onSubmitUsername}) {
   return (
     <form onSubmit={handleSubmit}>
       <div>
-        <label>Username:</label>
-        <input type="text" />
+        <label htmlFor="test">Username:</label>
+        <input
+          id="test"
+          type="text"
+          value={test}
+          ref={inputRef}
+          onChange={handleChange}
+        />
+        <div role="alert" style={{display: showAlert ? 'block' : 'none'}}>
+          Not lower case
+        </div>
       </div>
       <button type="submit">Submit</button>
     </form>
